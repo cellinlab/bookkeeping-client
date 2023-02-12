@@ -10,7 +10,7 @@ import { ConfigProvider } from 'zarm'
 import zhCN from 'zarm/lib/config-provider/locale/zh_CN'
 import 'zarm/dist/zarm.css'
 
-import routes from '../src/router'
+import routes from '@/router'
 
 function App () {
   return <Router>

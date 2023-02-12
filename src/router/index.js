@@ -1,5 +1,5 @@
-import Home from '../container/Home'
-import About from '../container/About'
+import Home from '@/container/Home'
+import About from '@/container/About'
 
 const routes = [
   {
