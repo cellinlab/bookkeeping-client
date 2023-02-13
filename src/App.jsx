@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
+  useLocation,
 } from 'react-router-dom'
 
 import { ConfigProvider } from 'zarm'
@@ -12,8 +12,17 @@ import 'zarm/dist/zarm.css'
 
 import routes from '@/router'
 
+import NavBar from '@/components/NavBar'
+
 function App () {
-  return <Router>
+  const location = useLocation()
+  const { pathname } = location
+  const navs = ['/', '/statistics', '/user']
+  const [showNav, setShowNav] = useState(false)
+  useEffect(() => {
+    setShowNav(navs.includes(pathname))
+  }, [pathname])
+  return <>
     <ConfigProvider primaryColor={'#007fff'} locale={zhCN}>
       <Routes>
         {
@@ -27,7 +36,8 @@ function App () {
         }
       </Routes>
     </ConfigProvider>
-  </Router>
+    <NavBar showNav={showNav} />
+  </>
 }
 
 export default App

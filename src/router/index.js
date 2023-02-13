@@ -1,5 +1,6 @@
 import Home from '@/container/Home'
-import About from '@/container/About'
+import Statistics from '@/container/Statistics'
+import User from '@/container/User'
 
 const routes = [
   {
@@ -7,8 +8,12 @@ const routes = [
     component: Home,
   },
   {
-    path: '/about',
-    component: About,
+    path: '/statistics',
+    component: Statistics,
+  },
+  {
+    path: '/user',
+    component: User,
   },
 ]
 
