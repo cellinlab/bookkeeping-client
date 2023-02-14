@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { Toast } from 'zarm'
 
-const ENV = import.meta.env.ENV
+const MODE = import.meta.env.MODE
 
-axios.defaults.baseURL = ENV === 'development' ? '/api' : 'http://api.cellinlab.xyz'
+axios.defaults.baseURL = MODE === 'development' ? '/api' : 'http://api.cellinlab.xyz'
 axios.defaults.withCredentials = true
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 axios.defaults.headers['Authorization'] = `Bearer ${localStorage.getItem('token') || ''}`

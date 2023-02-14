@@ -32,7 +32,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://api.cellinlab.xyz/api/',
+        target: 'http://localhost:7001/api/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
