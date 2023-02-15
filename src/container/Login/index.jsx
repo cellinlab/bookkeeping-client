@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react'
 
 import { Cell, Input, Button, Checkbox, Toast } from 'zarm'
-import useCaptcha from 'use-offline-captcha'
 import md5 from 'md5'
 import cx from 'classnames'
 import CustomIcon from '@/components/CustomIcon'
+import Captcha from '@/components/Captcha'
 
 import { userSignin, userLogin } from '@/api/user'
 
@@ -18,26 +18,10 @@ const Login = () => {
   const [readed, setReaded] = useState(false)
   const [type, setType] = useState('login')
 
-  const userOpt = {
-    type: 'mixed',
-    length: 4,
-    sensitive: false,
-  }
-
-  const { gen, validate } = useCaptcha(captchaRef, userOpt)
-
-  useEffect(() => {
-    if (gen) {
-      gen()
-    }
-  }, [gen])
-
   const handleValidate = () => {
-    const isValid = validate(captcha)
+    const isValid = captchaRef.current.validate(captcha)
     return isValid
   }
-
-  const handleRefreshCaptcha = () => gen()
 
   const onSubmit = async () => {
     if (!username) {
@@ -118,7 +102,7 @@ const Login = () => {
               placeholder="请输入验证码"
               onChange={(value) => setCaptcha(value)}
             />
-            <div ref={captchaRef} onClick={handleRefreshCaptcha}></div>
+            <Captcha ref={captchaRef} />
           </Cell>
         : null
       }
