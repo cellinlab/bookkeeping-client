@@ -6,6 +6,8 @@ const Captcha = React.forwardRef((props, ref) => {
   const captchaRef = useRef()
 
   const userOpt = {
+    height: 45,
+    width: 160,
     type: 'mixed',
     length: 4,
     sensitive: false,

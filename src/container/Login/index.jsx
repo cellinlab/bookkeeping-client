@@ -111,7 +111,7 @@ const Login = () => {
       {
         type == 'signin' ?
           <div className={style.informed}>
-            <Checkbox checked={readed} onChange={(checked) => setReaded(checked)} />
+            <Checkbox checked={readed} onChange={() => setReaded(!readed)} />
             <label className='text-light'>我已阅读并同意<a href="">《赛林岚伯记账应用条款》</a></label>
           </div>
         : null
