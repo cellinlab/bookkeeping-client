@@ -6,7 +6,7 @@ const MODE = import.meta.env.MODE
 axios.defaults.baseURL = MODE === 'development' ? '/api' : 'http://api.cellinlab.xyz'
 axios.defaults.withCredentials = true
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
-axios.defaults.headers['Authorization'] = `Bearer ${localStorage.getItem('token') || ''}`
+axios.defaults.headers['Authorization'] = `${localStorage.getItem('token') || ''}`
 axios.defaults.headers['Content-Type'] = 'application/json'
 
 axios.interceptors.response.use(res => {
