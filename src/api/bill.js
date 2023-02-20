@@ -19,3 +19,7 @@ export const deleteBill = (params) => {
 export const billDetail = (params) => {
   return post('/bill/detail', params)
 }
+
+export const billStatistics = (params) => {
+  return post('/bill/statistics', params)
+}
