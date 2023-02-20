@@ -6,12 +6,15 @@ import style from './style.module.less'
 import BillItem from '@/components/BillItem'
 import PopupType from '@/components/PopupType'
 import PopupDate from '@/components/PopupDate'
+import PopupAddBill from '@/components/PopupAddBill'
+import CustomIcon from '@/components/CustomIcon'
 import { REFRESH_STATE, LOAD_STATE } from '@/utils'
 import { billList } from '@/api/bill'
 
 const Home = () => {
   const typeRef = useRef()
   const dateRef = useRef()
+  const addBillRef = useRef()
   const [currentType, setCurrentType] = useState({})
   const [currentTime, setCurrentTime] = useState(dayjs().format('YYYY-MM'))
   const [totalExpense, setTotalExpense] = useState(0)
@@ -84,6 +87,10 @@ const Home = () => {
     setCurrentTime(item)
   }
 
+  const addToggle = () => {
+    addBillRef.current && addBillRef.current.show()
+  }
+
   return <div className={style.home}>
     <div className={style.header}>
       <div className={style.dataWrap}>
@@ -121,8 +128,12 @@ const Home = () => {
           </Pull> : null
       }
     </div>
+    <div className={style.addBtn} onClick={addToggle}>
+      <CustomIcon type="icon-jizhang" />
+    </div>
     <PopupType ref={typeRef} onSelect={select} />
     <PopupDate ref={dateRef} mode="month" onSelect={dateSelect} />
+    <PopupAddBill ref={addBillRef} onReload={refreshData} />
   </div>
 }
 
