@@ -9,10 +9,10 @@ import CustomIcon from '../CustomIcon'
 import style from './style.module.less'
 
 import { typeList } from '@/api/type'
-import { addBill } from '@/api/bill'
+import { addBill, updateBill } from '@/api/bill'
 import { TypeIconMap } from '@/utils'
 
-const PopupAddBill = forwardRef((props, ref) => {
+const PopupAddBill = forwardRef(({ detail = {}, onReload }, ref) => {
   const dateRef = useRef()
   const [date, setDate] = useState(new Date())
   const [show, setShow] = useState(false)
@@ -24,13 +24,29 @@ const PopupAddBill = forwardRef((props, ref) => {
   const [remark, setRemark] = useState('')
   const [remarkShow, setRemarkShow] = useState(false)
 
+  useEffect(() => {
+    if (detail.id) {
+      setPayType(detail.pay_type === 1 ? 'expense' : 'income')
+      setCurrentType({
+        id: detail.type_id,
+        name: detail.type_name,
+      })
+      setAmount(String(detail.amount))
+      setRemark(detail.remark)
+      setDate(dayjs(detail.date).toDate())
+    }
+  }, [detail])
+
   useEffect(async () => {
     const { data } = await typeList()
     const _expense = data.filter(item => item.pay_type === 1)
     const _income = data.filter(item => item.pay_type === 2)
     setExpenseTypes(_expense)
     setIncomeTypes(_income)
-    setCurrentType(_expense[0])
+
+    if (!detail.id) {
+      setCurrentType(_expense[0])
+    }
   }, [])
 
   if (ref) {
@@ -89,17 +105,23 @@ const PopupAddBill = forwardRef((props, ref) => {
       remark: remark || ''
     }
 
-    const res = await addBill(params)
+    if (detail.id) {
+      params.id = detail.id
 
-    setAmount('')
-    setPayType('expense')
-    setCurrentType(expenseTypes[0])
-    setDate(new Date())
-    setRemark('')
+      const res = await updateBill(params)
+      Toast.show('修改成功')
+    } else {
+      const res = await addBill(params)
+      setAmount('')
+      setPayType('expense')
+      setCurrentType(expenseTypes[0])
+      setDate(new Date())
+      setRemark('')
+      Toast.show('添加成功')
+    }
 
-    Toast.show('添加成功')
     setShow(false)
-    if (props.onReload) props.onReload()
+    if (onReload) onReload()
   }
 
   return <Popup
@@ -190,6 +212,8 @@ const PopupAddBill = forwardRef((props, ref) => {
 })
 
 PopupAddBill.propTypes = {
+  onReload: PropTypes.func,
+  detail: PropTypes.object
 }
 
 export default PopupAddBill
