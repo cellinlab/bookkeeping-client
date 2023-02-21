@@ -3,9 +3,10 @@ import React, { useRef, useEffect, useState } from 'react'
 import { Cell, Input, Button, Checkbox, Toast } from 'zarm'
 import md5 from 'md5'
 import cx from 'classnames'
+import { useNavigate } from 'react-router-dom'
+
 import CustomIcon from '@/components/CustomIcon'
 import Captcha from '@/components/Captcha'
-
 import { userSignin, userLogin } from '@/api/user'
 
 import style from './style.module.less'
@@ -17,6 +18,8 @@ const Login = () => {
   const [captcha, setCaptcha] = useState('')
   const [readed, setReaded] = useState(false)
   const [type, setType] = useState('login')
+
+  const navigateTo = useNavigate()
 
   const handleValidate = () => {
     const isValid = captchaRef.current.validate(captcha)
@@ -61,6 +64,7 @@ const Login = () => {
       if (type == 'login') {
         const { data } = await userLogin(params)
         localStorage.setItem('token', data.token)
+        navigateTo('/')
       } else {
         const res = await userSignin(params)
       }

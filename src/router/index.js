@@ -3,6 +3,9 @@ import Statistics from '@/container/Statistics'
 import User from '@/container/User'
 import Login from '@/container/Login'
 import Detail from '@/container/Detail'
+import UserInfo from '@/container/UserInfo'
+import Account from '@/container/Account'
+import About from '@/container/About'
 
 const routes = [
   {
@@ -24,6 +27,18 @@ const routes = [
   {
     path: '/detail',
     component: Detail,
+  },
+  {
+    path: '/userinfo',
+    component: UserInfo,
+  },
+  {
+    path: '/account',
+    component: Account,
+  },
+  {
+    path: '/about',
+    component: About,
   },
 ]
 

@@ -32,7 +32,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:7001/api/',
+        target: 'http://localhost:7001',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
@@ -42,6 +42,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'),
       'utils': path.resolve(__dirname, 'src/utils'),
+      'config': path.resolve(__dirname, 'src/config'),
     }
   }
 })

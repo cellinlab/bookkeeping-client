@@ -1,4 +1,16 @@
 import axios from './axios'
+import { baseUrl } from 'config'
+
+const MODE = import.meta.env.MODE
+
+export const imgUrlTrans = (url) => {
+  if (url && url.startsWith('http')) {
+    return url
+  } else {
+    url = `${MODE === 'development' ? baseUrl : 'http://bks.cellinlab.xyz'}${url}`
+    return url
+  }
+}
 
 export const get = axios.get
 
